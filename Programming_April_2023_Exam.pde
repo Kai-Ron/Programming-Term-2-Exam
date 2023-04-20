@@ -12,9 +12,9 @@ void setup()
   
   for (int i = 0; i < flags.length; i = i + 5)
   {
-    int randomXPos = int(random(1, width));
-    int randomYPos = int(random(1, height));
-    int randomWidth = int(random(1, width/4));
+    int randomXPos = int(random(0, width));
+    int randomYPos = int(random(0, height));
+    int randomWidth = int(random(8, width/4));
     int randomHeight = int(random(1, height/32));
     flags[i + 4] = new Flag(randomXPos + width, randomYPos, randomWidth, randomHeight);
     flags[i + 3] = new Flag(randomXPos, randomYPos + height, randomWidth, randomHeight);
@@ -55,7 +55,7 @@ void setup()
 
 void draw()
 {
-  background(255);
+  background(127, 127, 127);
   for (int i = 0; i < flags.length; i++)
   {
   flags[i].draw();
@@ -66,6 +66,8 @@ void draw()
 class Flag
 {
   int x, y, w, h, xStart, yStart, wStart, hStart;
+  boolean xGrow = true;
+  boolean yGrow = true;
   
   Flag(int xPos, int yPos, int flagWidth, int flagHeight)
   {
@@ -86,11 +88,69 @@ class Flag
     fill(r[j], g[j], b[j]);
     rect(x, y + (h * j), w, h);
     }
+    fill(0, 0, 0);
+    triangle(x, y, x, y + (h * 8), x + (w / 3), y + (h * 4));
+    fill(255, 255, 255);
+    triangle(x + w, y, x + w, y + (h * 8), x + ((2 * w) / 3), y + (h * 4));
+    stroke(127, 127, 127);
+    strokeWeight(5);
+    noFill();
+    ellipse(x + (w/2), y + (h * 4), (w / 3), (h * 4));
+    noStroke();
   }
   
   void update()
   {
+    if (xGrow)
+    {
+      if (w <= width / 4)
+      {
+        x--;
+        w += 2;
+      }
+      else
+      {
+        xGrow = false;
+      }
+    }
+    else
+    {
+      if (w > wStart)
+      {
+        x++;
+        w -= 2;
+      }
+      else
+      {
+        xGrow = true;
+      }
+    }
     
+    if (yGrow)
+    {
+      if (h <= height / 16)
+      {
+        y--;
+        h += 2;
+      }
+      else
+      {
+        yGrow = false;
+      }
+    }
+    else
+    {
+      if (h > hStart)
+      {
+        y++;
+        h -= 2;
+      }
+      else
+      {
+        yGrow = true;
+      }
+    }
   }
+  
   
 }
