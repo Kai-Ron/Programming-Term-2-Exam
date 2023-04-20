@@ -103,6 +103,9 @@ class Flag
   {
     if (xGrow)
     {
+      
+      x+=2;
+      
       if (w <= width / 4)
       {
         x--;
@@ -115,6 +118,9 @@ class Flag
     }
     else
     {
+      
+      x-=2;
+      
       if (w > wStart)
       {
         x++;
@@ -128,6 +134,9 @@ class Flag
     
     if (yGrow)
     {
+      
+      y+=2;
+      
       if (h <= height / 16)
       {
         y--;
@@ -140,6 +149,9 @@ class Flag
     }
     else
     {
+      
+      y-=2;
+      
       if (h > hStart)
       {
         y++;
@@ -151,6 +163,5 @@ class Flag
       }
     }
   }
-  
   
 }
